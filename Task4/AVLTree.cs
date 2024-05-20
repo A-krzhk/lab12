@@ -158,18 +158,9 @@ namespace Task4
             return point.Data;
         }
 
-        public T FindSmallest()
-        {
-            if (root == null)
-                throw new Exception("Дерево пусто");
-            return FindSmallestValue(root);
-        }
+
 
         // Функция удаления элемента
-        public void Delete(T data)
-        {
-            root = Delete(root, data);
-        }
 
         PointAVL<T> Delete(PointAVL<T> node, T data)
         {

@@ -65,11 +65,7 @@ namespace Task2
                     {
                         current++;
                     }
-                    // Проверяем, что current не выходит за пределы массива
-                    if (current >= table.Length)
-                    {
-                        throw new Exception("ERROR: в таблице нет места.");
-                    }
+                    
                 }
             }
             table[current] = data;

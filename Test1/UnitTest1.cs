@@ -1,7 +1,9 @@
 using PlantLib;
+using System.Xml.Linq;
 using Task1;
 using Task2;
 using Task3;
+
 
 
 namespace Test1
@@ -15,6 +17,17 @@ namespace Test1
             MyList<Plant> myList = new MyList<Plant>(10);
 
             Assert.IsTrue(myList.Count == 10);
+        }
+
+        [TestMethod]
+        public void TestZeroDeepCopy()
+        {
+            MyList<Plant> myList = new MyList<Plant>();
+            MyList<Plant> clone = myList.DeepCopy();
+            Tree tree = new Tree();
+            myList.AddToBegin(tree);
+
+            Assert.AreNotEqual(myList, clone);
         }
 
         [TestMethod]
@@ -96,106 +109,11 @@ namespace Test1
 
             Assert.AreNotEqual(myList, clone);
         }
-        //Тестирование HashTable
+        
 
-        [TestMethod]
-        public void TestHashTableConstructor()
-        {
-            HashTable<Plant, Plant> myHashTable = new HashTable<Plant, Plant>();
-            Assert.IsTrue(myHashTable.Count == 0 && myHashTable.Capacity == 10);
-
-        }
-
-        //добавление в таблицу
-        [TestMethod]
-        public void TestHashTableAddItem()
-        {
-            HashTable<Plant, Plant> myHashTable = new HashTable<Plant, Plant>();
-            Plant expect = new Plant();
-            expect.RandomInit();
-            myHashTable.AddItem(expect, expect);
-            Assert.IsTrue(myHashTable.Contains(expect));
-
-        }
-
-        //Добавление, когда кончилось место
-        [TestMethod]
-        public void TestHashTableAddMoreItem()
-        {
-            HashTable<Plant, Plant> myHashTable = new HashTable<Plant, Plant>(1);
-            Plant expect = new Plant();
-            expect.RandomInit();
-            myHashTable.AddItem(expect, expect);
-            expect.RandomInit();
-            myHashTable.AddItem(expect, expect);
-            Assert.IsTrue(myHashTable.Count == 2);
-
-        }
+        
 
 
-        [TestMethod]
-        public void TestHashTableRemoving()
-        {
-            HashTable<Plant, Plant> myHashTable = new HashTable<Plant, Plant>(1);
-            Plant expect = new Plant();
-            expect.RandomInit();
-            myHashTable.AddItem(expect, expect);
-            myHashTable.RemoveData(expect);
-            Assert.IsTrue(!myHashTable.Contains(expect));
 
-        }
-
-        //Тестирование АВЛ дерева
-
-
-        [TestMethod]
-        public void TestFindSmallest()
-        {
-            AVLTree<Plant> myTree = new AVLTree<Plant>();
-            Plant plant = new Plant("Абелия", "красный", 100);
-            Plant plant1 = new Plant("Роза", "красный", 110);
-
-            myTree.Insert(plant1);
-            myTree.Insert(plant);
-
-            Plant expect = myTree.FindSmallest();
-            Assert.AreEqual(expect, plant);
-        }
-
-        [TestMethod]
-        public void TestDeleteTree()
-        {
-            AVLTree<Plant> myTree = new();
-            Plant plant = new Plant("Абелия", "красный", 100);
-            Plant plant1 = new Plant("Роза", "красный", 110);
-
-            myTree.Insert(plant1);
-            myTree.Insert(plant);
-
-            myTree.DeleteTree();
-            Assert.IsNull(myTree.root);
-        }
-
-        [TestMethod]
-        public void TestInsertAndBalance()
-        {
-            // Arrange
-            AVLTree<Plant> myTree = new();
-            Plant plant1 = new Plant("Абелия", "красный", 100);
-            Plant plant2 = new Plant("Роза", "красный", 110);
-            Plant plant3 = new Plant("Магнолия", "красный", 10);
-
-
-            // Act
-            myTree.Insert(plant1);
-            myTree.Insert(plant2);
-            myTree.Insert(plant3);
-
-            // Assert
-            Assert.IsNotNull(myTree.root);
-            Assert.AreEqual(plant3, myTree.root.Data);
-            Assert.AreEqual(plant1, myTree.root.Left.Data);
-            Assert.AreEqual(plant2, myTree.root.Right.Data);
-        }
     }
 }

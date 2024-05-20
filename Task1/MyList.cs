@@ -174,19 +174,6 @@ namespace Task1
             }
         }
 
-        public MyList(T[] collection)
-        {
-            if (collection == null) throw new Exception("ERROR: Empty collection - null");
-            if (collection.Length == 0) throw new Exception("ERROR: Emty collections - length is zero");
-
-            T newData = (T)collection.Clone();
-            beg = new Point<T>(newData);
-            end = beg;
-            for (int i = 0; i < collection.Length; i++)
-            {
-                AddToEnd(collection[i]);
-            }
-        }
 
         public void PrintList()
         {
