@@ -7,18 +7,76 @@ namespace Task3
         //3 задание
         static void Main(string[] args)
         {
-            AVLTree<Plant> tree = new AVLTree<Plant>();
+            var avlTree = new AVLTree<Plant>(); // Замените MyData на ваш тип данных, реализующий IInit и IComparable
 
-            for (int i = 1; i <= 8; i++)
+            while (true)
             {
-                Plant data = new Plant();
-                data.RandomInit();
-                tree.Insert(data);
-            }
+                Console.WriteLine("Выберите действие:");
+                Console.WriteLine("1 - Добавить элемент");
+                Console.WriteLine("2 - Удалить элемент");
+                Console.WriteLine("3 - Показать дерево");
+                Console.WriteLine("4 - Найти наименьший элемент");
+                Console.WriteLine("5 - Очистить дерево");
+                Console.WriteLine("0 - Выйти");
 
-            tree.ShowTree();
-            Console.WriteLine("Наименьшее значение:");
-            tree.FindSmallest();
+                string choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    case "1":
+                        Plant plant = new Plant();
+                        plant.RandomInit();
+                        avlTree.Insert(plant);
+                        Console.WriteLine("Элемент добавлен.");
+                        break;
+
+                    case "2":
+                        Plant deleteData = new Plant();
+                        deleteData.Init();
+                        try
+                        {
+                            avlTree.Delete(deleteData);
+                            Console.WriteLine("Элемент удален.");
+
+                        } catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
+                        
+                        break;
+
+                    case "3":
+                        Console.WriteLine("AVL дерево:");
+                        avlTree.ShowTree();
+                        break;
+
+                    case "4":
+                        try
+                        {
+                            var smallest = avlTree.FindSmallest();
+                            Console.WriteLine($"Наименьший элемент: {smallest}");
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e.Message);
+                        }
+                        break;
+
+                    case "5":
+                        avlTree.DeleteTree();
+                        Console.WriteLine("Дерево очищено.");
+                        break;
+
+                    case "0":
+                        return;
+
+                    default:
+                        Console.WriteLine("Неверный выбор.");
+                        break;
+                }
+            }
         }
     }
+
+    
 }

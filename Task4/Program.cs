@@ -48,13 +48,14 @@ namespace Task4
                     case "3":
                         Plant plantToRemove = new Plant();
                         plantToRemove.Init();
-                        if (tree.Remove(plantToRemove))
+                        try
                         {
+                            tree.Remove(plantToRemove);
                             Console.WriteLine("Элемент удален.");
-                        }
-                        else
+
+                        }catch (Exception ex)
                         {
-                            Console.WriteLine("Элемент не найден.");
+                            Console.WriteLine(ex.Message);
                         }
                         break;
 

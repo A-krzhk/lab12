@@ -174,7 +174,7 @@ namespace Task4
         PointAVL<T> Delete(PointAVL<T> node, T data)
         {
             if (node == null)
-                return node;
+                throw new Exception("Элемент не найден");
 
             int compareResult = data.CompareTo(node.Data);
             if (compareResult < 0)
