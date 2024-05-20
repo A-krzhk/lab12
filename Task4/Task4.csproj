@@ -7,4 +7,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Reference Include="PlantLib">
+      <HintPath>..\..\Plant\Plant\bin\Debug\net8.0\PlantLib.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
