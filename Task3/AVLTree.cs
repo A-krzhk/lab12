@@ -120,23 +120,72 @@ namespace Task3
             return Balance(node);
         }
 
-        void FindSmallestValue(PointAVL<T> point)
+        // Функция поиска наименьшего элемента
+        T FindSmallestValue(PointAVL<T> point)
         {
-            if (point.Left != null)
+            while (point.Left != null)
             {
-                FindSmallestValue(point.Left);
+                point = point.Left;
+            }
+            return point.Data;
+        }
+
+        public T FindSmallest()
+        {
+            if (root == null)
+                throw new Exception("Дерево пусто");
+            return FindSmallestValue(root);
+        }
+
+        // Функция удаления элемента
+        public void Delete(T data)
+        {
+            root = Delete(root, data);
+        }
+
+        PointAVL<T> Delete(PointAVL<T> node, T data)
+        {
+            if (node == null)
+                return node;
+
+            int compareResult = data.CompareTo(node.Data);
+            if (compareResult < 0)
+            {
+                node.Left = Delete(node.Left, data);
+            }
+            else if (compareResult > 0)
+            {
+                node.Right = Delete(node.Right, data);
             }
             else
             {
-                Console.WriteLine(point.Data);
+                // У узла два потомка
+                if (node.Left != null && node.Right != null)
+                {
+                    T smallestValueInRightSubtree = FindSmallestValue(node.Right);
+                    node.Data = smallestValueInRightSubtree;
+                    node.Right = Delete(node.Right, smallestValueInRightSubtree);
+                }
+                else
+                {
+                    // Один или ноль потомков
+                    node = (node.Left != null) ? node.Left : node.Right;
+                }
             }
-            
+
+            if (node != null)
+                node = Balance(node);
+
+            return node;
         }
-        public void FindSmallest()
+
+        //Очистка дерева
+        public void DeleteTree()
         {
-            FindSmallestValue(root);
+            root = null;
         }
     }
+
 }
 
 
